@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -10,39 +11,191 @@
 
     <title>Stock Analysis</title>
 
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 
 <body>
 
-<h1>Stock Analysis</h1>
 
-<nav>
+<header>
 
-    <a href="index.html">Market Summary</a> |
-    <a href="stock.html">Stock Analysis</a> |
-    <a href="strategy.html">Strategy</a>
+    <div class="header-container">
 
-</nav>
+        <h1>My Quant Market</h1>
 
-<hr>
+        <nav>
+
+            <a href="index.html">
+                Market Summary
+            </a>
+
+            <a href="stock.html">
+                Stock Analysis
+            </a>
+
+            <a href="strategy.html">
+                Strategy
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
 
 
-<h2>Search Stock</h2>
-
-<input
-    type="text"
-    id="ticker"
-    placeholder="Enter ticker, e.g. AAPL">
-
-<button onclick="searchStock()">
-    Search
-</button>
+<main class="container">
 
 
-<h2 id="stockName"></h2>
+    <div class="page-title">
 
-<div id="stockData"></div>
+        <h2>Stock Analysis</h2>
+
+        <p>
+            Search for a stock to analyze.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="ticker"
+                placeholder="Enter ticker, e.g. AAPL"
+                value="AAPL">
+
+
+            <button onclick="searchStock()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <div id="stockResult"
+         style="display:none;">
+
+
+        <div class="section">
+
+
+            <div class="card">
+
+                <h2 id="stockTicker">
+                    AAPL
+                </h2>
+
+                <p>
+                    Apple Inc.
+                </p>
+
+                <h1 id="stockPrice">
+                    $250.00
+                </h1>
+
+                <p class="positive">
+                    +1.25%
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="section">
+
+
+            <div class="metric-grid">
+
+
+                <div class="metric">
+
+                    <div class="metric-title">
+                        1 Month Return
+                    </div>
+
+                    <div class="metric-value">
+                        +4.2%
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-title">
+                        1 Year Return
+                    </div>
+
+                    <div class="metric-value">
+                        +18.5%
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-title">
+                        Volatility
+                    </div>
+
+                    <div class="metric-value">
+                        25.4%
+                    </div>
+
+                </div>
+
+
+                <div class="metric">
+
+                    <div class="metric-title">
+                        Max Drawdown
+                    </div>
+
+                    <div class="metric-value">
+                        -22.1%
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="chart-container">
+
+            <h3>
+                Price Chart
+            </h3>
+
+            <p>
+                Interactive stock chart will appear here.
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+</main>
 
 
 <script>
@@ -50,14 +203,30 @@
 function searchStock() {
 
     let ticker =
-        document.getElementById("ticker").value
+        document
+        .getElementById("ticker")
+        .value
+        .trim()
         .toUpperCase();
 
-    document.getElementById("stockName").innerHTML =
-        ticker;
 
-    document.getElementById("stockData").innerHTML =
-        "Stock data will appear here.";
+    if (ticker === "") {
+
+        alert("Please enter a ticker.");
+
+        return;
+
+    }
+
+
+    document
+        .getElementById("stockTicker")
+        .innerText = ticker;
+
+
+    document
+        .getElementById("stockResult")
+        .style.display = "block";
 
 }
 
