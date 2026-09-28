@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Strategy</title>
+
+</head>
+
+
+<body>
+
+<h1>Strategy Analysis</h1>
+
+
+<nav>
+
+    <a href="index.html">Market Summary</a> |
+    <a href="stock.html">Stock Analysis</a> |
+    <a href="strategy.html">Strategy</a>
+
+</nav>
+
+<hr>
+
+
+<h2>Backtest Strategy</h2>
+
+
+<p>
+
+Stock:
+
+<input
+    type="text"
+    id="ticker"
+    value="AAPL">
+
+</p>
+
+
+<p>
+
+Strategy:
+
+<select id="strategy">
+
+    <option>Moving Average</option>
+    <option>Momentum</option>
+    <option>Mean Reversion</option>
+
+</select>
+
+</p>
+
+
+<p>
+
+Short MA:
+
+<input
+    type="number"
+    id="shortMA"
+    value="50">
+
+</p>
+
+
+<p>
+
+Long MA:
+
+<input
+    type="number"
+    id="longMA"
+    value="200">
+
+</p>
+
+
+<button onclick="runBacktest()">
+
+    Run Backtest
+
+</button>
+
+
+<h2>Results</h2>
+
+<div id="results">
+
+    Backtest results will appear here.
+
+</div>
+
+
+<script>
+
+function runBacktest() {
+
+    document.getElementById("results").innerHTML =
+
+        "Backtest engine will be connected here.";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
