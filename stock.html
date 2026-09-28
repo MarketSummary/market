@@ -1,237 +1,105 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Stock Analysis</title>
 
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-
 
 <body>
 
+    <div class="container">
 
-<header>
-
-    <div class="header-container">
-
-        <h1>My Quant Market</h1>
-
-        <nav>
-
-            <a href="index.html">
-                Market Summary
-            </a>
-
-            <a href="stock.html">
-                Stock Analysis
-            </a>
-
-            <a href="strategy.html">
-                Strategy
-            </a>
-
-        </nav>
-
-    </div>
-
-</header>
-
-
-<main class="container">
-
-
-    <div class="page-title">
-
-        <h2>Stock Analysis</h2>
-
-        <p>
-            Search for a stock to analyze.
-        </p>
-
-    </div>
-
-
-    <div class="card">
-
+        <h1>Stock Analysis</h1>
 
         <div class="search-box">
 
             <input
                 type="text"
-                id="ticker"
+                id="tickerInput"
                 placeholder="Enter ticker, e.g. AAPL"
-                value="AAPL">
-
+            >
 
             <button onclick="searchStock()">
-
                 Search
-
             </button>
 
         </div>
 
+        <div id="loading"></div>
+
+        <div id="stockResult">
+
+            <h2 id="ticker"></h2>
+
+            <div class="metric">
+                <span>Price</span>
+                <strong id="price">--</strong>
+            </div>
+
+            <div class="metric">
+                <span>Change</span>
+                <strong id="change">--</strong>
+            </div>
+
+        </div>
 
     </div>
 
 
-    <div id="stockResult"
-         style="display:none;">
+    <script>
 
+        async function searchStock() {
 
-        <div class="section">
+            const tickerInput =
+                document.getElementById("tickerInput");
 
+            const ticker =
+                tickerInput.value.trim().toUpperCase();
 
-            <div class="card">
+            if (!ticker) {
+                alert("Please enter a ticker.");
+                return;
+            }
 
-                <h2 id="stockTicker">
-                    AAPL
-                </h2>
+            document.getElementById("loading").innerText =
+                "Loading...";
 
-                <p>
-                    Apple Inc.
-                </p>
+            try {
 
-                <h1 id="stockPrice">
-                    $250.00
-                </h1>
+                const response = await fetch(
+                    `http://127.0.0.1:8000/api/stock/${ticker}`
+                );
 
-                <p class="positive">
-                    +1.25%
-                </p>
+                const data = await response.json();
 
-            </div>
+                document.getElementById("ticker").innerText =
+                    data.ticker;
 
+                document.getElementById("price").innerText =
+                    "$" + data.price.toFixed(2);
 
-        </div>
+                document.getElementById("change").innerText =
+                    data.change_percent.toFixed(2) + "%";
 
+                document.getElementById("loading").innerText = "";
 
-        <div class="section">
+            } catch (error) {
 
+                console.error(error);
 
-            <div class="metric-grid">
+                document.getElementById("loading").innerText =
+                    "Unable to connect to the API.";
 
+            }
 
-                <div class="metric">
+        }
 
-                    <div class="metric-title">
-                        1 Month Return
-                    </div>
-
-                    <div class="metric-value">
-                        +4.2%
-                    </div>
-
-                </div>
-
-
-                <div class="metric">
-
-                    <div class="metric-title">
-                        1 Year Return
-                    </div>
-
-                    <div class="metric-value">
-                        +18.5%
-                    </div>
-
-                </div>
-
-
-                <div class="metric">
-
-                    <div class="metric-title">
-                        Volatility
-                    </div>
-
-                    <div class="metric-value">
-                        25.4%
-                    </div>
-
-                </div>
-
-
-                <div class="metric">
-
-                    <div class="metric-title">
-                        Max Drawdown
-                    </div>
-
-                    <div class="metric-value">
-                        -22.1%
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-        <div class="chart-container">
-
-            <h3>
-                Price Chart
-            </h3>
-
-            <p>
-                Interactive stock chart will appear here.
-            </p>
-
-        </div>
-
-
-    </div>
-
-
-</main>
-
-
-<script>
-
-function searchStock() {
-
-    let ticker =
-        document
-        .getElementById("ticker")
-        .value
-        .trim()
-        .toUpperCase();
-
-
-    if (ticker === "") {
-
-        alert("Please enter a ticker.");
-
-        return;
-
-    }
-
-
-    document
-        .getElementById("stockTicker")
-        .innerText = ticker;
-
-
-    document
-        .getElementById("stockResult")
-        .style.display = "block";
-
-}
-
-</script>
-
+    </script>
 
 </body>
 
