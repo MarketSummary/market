@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Quant Market</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 20px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .indices {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .index-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .index-name {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .index-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <h1>My Quant Market</h1>
+
+    <nav>
+        <a href="index.html">Market Summary</a>
+        <a href="stock.html">Stock Analysis</a>
+        <a href="strategy.html">Strategy</a>
+    </nav>
+
+</header>
+
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Daily Market Summary</h2>
+
+        <p>September 28, 2026</p>
+
+    </div>
+
+
+    <div class="indices">
+
+        <div class="index-card">
+            <div class="index-name">S&P 500</div>
+            <div class="index-value">6,500.00</div>
+            <div>+0.42%</div>
+        </div>
+
+        <div class="index-card">
+            <div class="index-name">Nasdaq</div>
+            <div class="index-value">21,500.00</div>
+            <div>+0.71%</div>
+        </div>
+
+        <div class="index-card">
+            <div class="index-name">Dow Jones</div>
+            <div class="index-value">45,000.00</div>
+            <div>+0.18%</div>
+        </div>
+
+        <div class="index-card">
+            <div class="index-name">Russell 2000</div>
+            <div class="index-value">2,300.00</div>
+            <div>-0.15%</div>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Market Commentary</h2>
+
+        <p>
+            Today's market summary will appear here.
+            We will later connect this section to your
+            daily market analysis.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
