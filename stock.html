@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Stock Analysis</title>
+
+</head>
+
+
+<body>
+
+<h1>Stock Analysis</h1>
+
+<nav>
+
+    <a href="index.html">Market Summary</a> |
+    <a href="stock.html">Stock Analysis</a> |
+    <a href="strategy.html">Strategy</a>
+
+</nav>
+
+<hr>
+
+
+<h2>Search Stock</h2>
+
+<input
+    type="text"
+    id="ticker"
+    placeholder="Enter ticker, e.g. AAPL">
+
+<button onclick="searchStock()">
+    Search
+</button>
+
+
+<h2 id="stockName"></h2>
+
+<div id="stockData"></div>
+
+
+<script>
+
+function searchStock() {
+
+    let ticker =
+        document.getElementById("ticker").value
+        .toUpperCase();
+
+    document.getElementById("stockName").innerHTML =
+        ticker;
+
+    document.getElementById("stockData").innerHTML =
+        "Stock data will appear here.";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
