@@ -1,179 +1,300 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>My Quant Market</title>
+    <title>Daily Market Summary</title>
 
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-
 
 <body>
 
-
-<header>
-
-    <div class="header-container">
-
-        <h1>My Quant Market</h1>
-
-        <nav>
-
-            <a href="index.html">
-                Market Summary
-            </a>
-
-            <a href="stock.html">
-                Stock Analysis
-            </a>
-
-            <a href="strategy.html">
-                Strategy
-            </a>
-
-        </nav>
-
-    </div>
-
-</header>
+    <header>
+        <h1>Daily Market Summary</h1>
+        <p id="marketDate">Loading...</p>
+    </header>
 
 
-<main class="container">
+    <!-- Market Overview -->
 
+    <section>
 
-    <div class="page-title">
+        <h2>Market Overview</h2>
 
-        <h2>Daily Market Summary</h2>
+        <div class="summary-grid">
 
-        <p id="marketDate">
-            September 28, 2026
-        </p>
-
-    </div>
-
-
-    <div class="index-grid">
-
-
-        <div class="card">
-
-            <div class="index-name">
-                S&P 500
+            <div class="card">
+                <h3>Total Stocks</h3>
+                <p id="totalStocks">-</p>
             </div>
 
-            <div class="index-value">
-                6,500.00
+            <div class="card">
+                <h3>Advancing</h3>
+                <p id="advancing">-</p>
             </div>
 
-            <div class="positive">
-                +0.42%
+            <div class="card">
+                <h3>Declining</h3>
+                <p id="declining">-</p>
+            </div>
+
+            <div class="card">
+                <h3>Unchanged</h3>
+                <p id="unchanged">-</p>
             </div>
 
         </div>
 
+    </section>
 
-        <div class="card">
 
-            <div class="index-name">
-                Nasdaq
+    <!-- Statistics -->
+
+    <section>
+
+        <h2>Market Statistics</h2>
+
+        <div class="summary-grid">
+
+            <div class="card">
+                <h3>Average Change</h3>
+                <p id="averageChange">-</p>
             </div>
 
-            <div class="index-value">
-                21,500.00
+            <div class="card">
+                <h3>Median Change</h3>
+                <p id="medianChange">-</p>
             </div>
 
-            <div class="positive">
-                +0.71%
+            <div class="card">
+                <h3>Total Volume</h3>
+                <p id="totalVolume">-</p>
             </div>
 
-        </div>
-
-
-        <div class="card">
-
-            <div class="index-name">
-                Dow Jones
-            </div>
-
-            <div class="index-value">
-                45,000.00
-            </div>
-
-            <div class="positive">
-                +0.18%
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="index-name">
-                Russell 2000
-            </div>
-
-            <div class="index-value">
-                2,300.00
-            </div>
-
-            <div class="negative">
-                -0.15%
+            <div class="card">
+                <h3>A/D Ratio</h3>
+                <p id="adRatio">-</p>
             </div>
 
         </div>
 
-
-    </div>
-
-
-    <div class="section">
-
-        <div class="card">
-
-            <h2>
-                Market Commentary
-            </h2>
-
-            <p>
-                The market commentary will appear here.
-                This section will eventually be generated
-                from your daily market analysis.
-            </p>
-
-        </div>
-
-    </div>
+    </section>
 
 
-    <div class="section">
+    <!-- Top Gainers -->
 
-        <div class="card">
+    <section>
 
-            <h2>
-                Market Statistics
-            </h2>
+        <h2>Top Gainers</h2>
 
-            <p>
-                Additional statistics such as market
-                breadth, volume, volatility and sector
-                performance will be displayed here.
-            </p>
+        <table>
 
-        </div>
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Price</th>
+                    <th>Change</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
 
-    </div>
+            <tbody id="gainersTable"></tbody>
+
+        </table>
+
+    </section>
 
 
-</main>
+    <!-- Top Losers -->
 
+    <section>
+
+        <h2>Top Losers</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Price</th>
+                    <th>Change</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+
+            <tbody id="losersTable"></tbody>
+
+        </table>
+
+    </section>
+
+
+    <!-- Most Active -->
+
+    <section>
+
+        <h2>Most Active</h2>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Ticker</th>
+                    <th>Price</th>
+                    <th>Change</th>
+                    <th>Volume</th>
+                </tr>
+            </thead>
+
+            <tbody id="activeTable"></tbody>
+
+        </table>
+
+    </section>
+
+
+    <script>
+
+        async function loadMarketSummary() {
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:8000/api/market-summary"
+                );
+
+                if (!response.ok) {
+                    throw new Error("API request failed");
+                }
+
+                const data = await response.json();
+
+
+                // Market date
+
+                document.getElementById("marketDate").innerText =
+                    "Market Date: " + data.date;
+
+
+                // Market overview
+
+                document.getElementById("totalStocks").innerText =
+                    data.total_stocks.toLocaleString();
+
+                document.getElementById("advancing").innerText =
+                    data.market_breadth.advancing.toLocaleString();
+
+                document.getElementById("declining").innerText =
+                    data.market_breadth.declining.toLocaleString();
+
+                document.getElementById("unchanged").innerText =
+                    data.market_breadth.unchanged.toLocaleString();
+
+
+                // Statistics
+
+                document.getElementById("averageChange").innerText =
+                    data.statistics.average_change_percent.toFixed(2) + "%";
+
+                document.getElementById("medianChange").innerText =
+                    data.statistics.median_change_percent.toFixed(2) + "%";
+
+                document.getElementById("totalVolume").innerText =
+                    data.statistics.total_volume.toLocaleString();
+
+                document.getElementById("adRatio").innerText =
+                    data.market_breadth.advance_decline_ratio !== null
+                        ? data.market_breadth.advance_decline_ratio.toFixed(2)
+                        : "N/A";
+
+
+                // Tables
+
+                populateTable(
+                    "gainersTable",
+                    data.top_gainers
+                );
+
+                populateTable(
+                    "losersTable",
+                    data.top_losers
+                );
+
+                populateTable(
+                    "activeTable",
+                    data.most_active
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(error);
+
+                document.getElementById("marketDate").innerText =
+                    "Unable to load market data.";
+
+            }
+
+        }
+
+
+        function populateTable(tableId, stocks) {
+
+            const table = document.getElementById(tableId);
+
+            table.innerHTML = "";
+
+
+            stocks.forEach(stock => {
+
+                const row = document.createElement("tr");
+
+
+                const ticker = document.createElement("td");
+
+                ticker.innerText = stock.ticker;
+
+
+                const price = document.createElement("td");
+
+                price.innerText =
+                    "$" + Number(stock.close).toFixed(2);
+
+
+                const change = document.createElement("td");
+
+                change.innerText =
+                    Number(stock.change_percent).toFixed(2) + "%";
+
+
+                const volume = document.createElement("td");
+
+                volume.innerText =
+                    Number(stock.volume).toLocaleString();
+
+
+                row.appendChild(ticker);
+                row.appendChild(price);
+                row.appendChild(change);
+                row.appendChild(volume);
+
+
+                table.appendChild(row);
+
+            });
+
+        }
+
+
+        // Load the market data
+
+        loadMarketSummary();
+
+    </script>
 
 </body>
 
